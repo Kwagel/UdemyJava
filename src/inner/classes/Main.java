@@ -35,20 +35,30 @@ public class Main {
 //        mcLaren.changeGear(3);
 //        mcLaren.operateClutch(false);
 //        System.out.println(mcLaren.wheelSpeed(6000));
-    
-        class ClickListener implements Button.OnCLickListener{
-            public ClickListener(){
-                System.out.println("I've been attached");
-            }
-    
+
+
+
+//        class ClickListener implements Button.OnCLickListener{
+//            public ClickListener(){
+//                System.out.println("I've been attached");
+//            }
+//
+//            @Override
+//            public void onClick(String title) {
+//                System.out.println(title + " was clicked");
+//            }
+//
+//        }
+//
+//        btnPrint.setOnClickListener(new ClickListener());
+//
+//        anonymous class, created and instantiated in the same place
+        btnPrint.setOnClickListener(new Button.OnCLickListener() {
             @Override
             public void onClick(String title) {
                 System.out.println(title + " was clicked");
             }
-    
-        }
-        
-        btnPrint.setOnClickListener(new ClickListener());
+        });
         listen();
     }
     private static void listen(){
