@@ -6,16 +6,22 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Player tim = new Player("Tim", 10,15);
-        System.out.println(tim.toString());
+        System.out.println(tim);
         saveObject(tim);
         
         tim.setHitPoints(8);
         System.out.println(tim);
         tim.setWeapon("Durandal");
         saveObject(tim);
-        loadObject(tim);
+//        loadObject(tim);
         System.out.println(tim);
         
+        ISaveable werewolf = new Monster("Simon", "Werewolf", 40);
+        System.out.println("Damage = " + ((Monster)werewolf).getDamage());
+        System.out.println(werewolf);
+        saveObject(werewolf);
+        loadObject(werewolf);
+        saveObject(werewolf);
     }
     // Create a simple interface that allows an object to be saved to some sort of storage medium.
     // The exact type of medium is not known to the interface (nor to the classes that implement it).
@@ -37,7 +43,7 @@ public class Main {
     // requires, and returns an ArrayList.
     
     public static ArrayList<String> readValues() {
-        ArrayList<String> values = new ArrayList<String>();
+        ArrayList<String> values = new ArrayList<>();
         
         Scanner scanner = new Scanner(System.in);
         boolean quit = false;
