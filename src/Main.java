@@ -19,7 +19,7 @@ public class Main {
         int[] myIntArray = new int[5];
         int[] anotherArray = myIntArray;
         
-//        coding challenge
+//        coding interfaces.challenge
         System.out.println("Pleas choose how long the array will be");
         int count =  Integer.parseInt(new Scanner(System.in).nextLine());
         int[] array = readIntegers(count);
