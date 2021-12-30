@@ -1,25 +1,24 @@
 package Adventure;
 
-import com.sun.xml.internal.bind.v2.model.core.ID;
-
 import java.util.HashMap;
 import java.util.Map;
 
 public class Location {
-	private final int location ID;
+	private final int locationID;
 	private final String description;
 	private final Map<String, Integer> exits;
 	
-	public Location(int location, String description) {
-		this.location = location;
+	public Location(int locationID, String description) {
+		this.locationID = locationID;
 		this.description = description;
 		this.exits = new HashMap<String, Integer>();
+		exits.put("Q", 0);
 	}
 	public void addExit(String direction, int location){
 		exits.put(direction, location);
 	}
-	public int getLocation() {
-		return location;
+	public int getLocationID() {
+		return locationID;
 	}
 	
 	public String getDescription() {
@@ -27,6 +26,7 @@ public class Location {
 	}
 	
 	public Map<String, Integer> getExits() {
-		return exits;
+//		as it returns a copy, you can't modify the original hashmap
+		return new HashMap<String, Integer>(exits);
 	}
 }
