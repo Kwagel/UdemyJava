@@ -17,10 +17,10 @@ public class StockList {
 //			check if already have quantities of this item
 			if (inStock != item) {
 //			new item
-				item.adjustStock(inStock.quantityInStock());
+				item.adjustStock(inStock.availableQuantity());
 			}
 			list.put(item.getName(), item);
-			return item.quantityInStock();
+			return item.availableQuantity();
 		}
 		return 0;
 	}
@@ -31,8 +31,8 @@ public class StockList {
 		StockItem inStock = list.getOrDefault(item, null);
 //		if not null and theres enough stock, and your not taking 0
 //		CHECK: not null; quantity is enough after potential sale
-		int stockAvaialable = inStock.quantityInStock()- ((inStock.getReserved())  + Math.abs(quantity));
-		if ((inStock != null) && (inStock.quantityInStock() >= quantity) && (Math.abs(quantity) > 0) && (stockAvaialable >= 0)) {
+		
+		if ((inStock != null) && (inStock.quantityInStock() >= quantity)  && (inStock.quantityInStock() >= 0)) {
 //			remove the stock
 			inStock.reserveItem(quantity);
 //			return amount taken
@@ -41,7 +41,20 @@ public class StockList {
 //		return amount taken as 0
 		return 0;
 	}
-	
+	public int unreserveStock(String item, int quantity){
+		StockItem inStock = list.getOrDefault(item, null);
+//		if not null and theres enough stock, and your not taking 0
+//		CHECK: not null; quantity is enough after potential sale
+
+		if ((inStock != null) && inStock.getReserved() >= quantity) {
+//			remove the stock
+			inStock.unreserveItem(quantity);
+//			return amount taken
+			return quantity;
+		}
+//		return amount taken as 0
+		return 0;
+	}
 	public StockItem get(String key) {
 //		get SI from key value in list
 		return list.get(key);
