@@ -19,7 +19,7 @@ public class Main {
 		directions.put("NORTH", "N");
 		directions.put("QUIT", "Q");
 		
-		int loc = 1;
+		int loc = 64;
 		while (true) {
 //			get description from location field.
 			System.out.println(locations.get(loc).getDescription());
