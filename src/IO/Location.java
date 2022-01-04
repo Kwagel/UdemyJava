@@ -1,6 +1,6 @@
 package IO;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class Location {
@@ -12,13 +12,12 @@ public class Location {
 		this.locationID = locationID;
 		this.description = description;
 //		creating a copy so when you assign stuff using a temp hashmap, using remove doesn't affect the stored map
-		
 		if (exits != null){
-			this.exits = new HashMap<>(exits);
+			this.exits = new LinkedHashMap<>(exits);
 		}else{
-			this.exits = new HashMap<>();
+			this.exits = new LinkedHashMap<>();
 		}
-		exits.put("Q", 0);
+			exits.put("Q", 0);
 	}
 //	public void addExit(String direction, int location){
 //		exits.put(direction, location);
@@ -33,7 +32,7 @@ public class Location {
 	
 	public Map<String, Integer> getExits() {
 //		as it returns a copy, you can't modify the original hashmap
-		return new HashMap<String, Integer>(exits);
+		return new LinkedHashMap<>(exits);
 	}
 	
 	protected void addExit(String direction, int location){
