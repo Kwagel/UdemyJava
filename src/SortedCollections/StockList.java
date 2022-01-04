@@ -24,37 +24,46 @@ public class StockList {
 		}
 		return 0;
 	}
-	
+	public int sellStock(String item, int quantity){
+		StockItem inStock = list.get(item);
+		
+		if (inStock != null && quantity >0){
+			return inStock.finaliseStock(quantity);
+		}
+		return 0;
+	}
 	public int reserveStock(String item, int quantity) {
-	
+
 //		if it exists, retrieve item from key in list, otherwise null
 		StockItem inStock = list.getOrDefault(item, null);
 //		if not null and theres enough stock, and your not taking 0
 //		CHECK: not null; quantity is enough after potential sale
 		
-		if ((inStock != null) && (inStock.quantityInStock() >= quantity)  && (inStock.quantityInStock() >= 0)) {
+		if ((inStock != null) && quantity > 0) {
 //			remove the stock
-			inStock.reserveItem(quantity);
 //			return amount taken
-			return quantity;
+			return inStock.reserveItem(quantity);
+			
 		}
 //		return amount taken as 0
 		return 0;
 	}
-	public int unreserveStock(String item, int quantity){
+	
+	public int unreserveStock(String item, int quantity) {
 		StockItem inStock = list.getOrDefault(item, null);
 //		if not null and theres enough stock, and your not taking 0
 //		CHECK: not null; quantity is enough after potential sale
-
-		if ((inStock != null) && inStock.getReserved() >= quantity) {
+		
+		if ((inStock != null) && quantity > 0) {
 //			remove the stock
-			inStock.unreserveItem(quantity);
 //			return amount taken
-			return quantity;
+			return inStock.unreserveItem(quantity);
+			
 		}
 //		return amount taken as 0
 		return 0;
 	}
+	
 	public StockItem get(String key) {
 //		get SI from key value in list
 		return list.get(key);

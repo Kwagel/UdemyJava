@@ -32,27 +32,27 @@ public class Main {
 			System.out.println(s);
 		}
 		Basket timsBasket = new Basket("Tim");
-		reserveItem(timsBasket, "car", 1);
+		addItem(timsBasket, "car", 1);
 		System.out.println(timsBasket);
 		
-		reserveItem(timsBasket, "car", 1);
+		addItem(timsBasket, "car", 1);
 		System.out.println(timsBasket);
 		
-		if (reserveItem(timsBasket, "car", 1) != 1) {
+		if (addItem(timsBasket, "car", 1) != 1) {
 			System.out.println("There are no more cars in stock");
 		}
 		System.out.println(timsBasket);
 		
-		reserveItem(timsBasket, "towel", 1);
-		reserveItem(timsBasket, "chair", 1);
-		reserveItem(timsBasket, "cup", 50);
-		unreserveItem(timsBasket, "cup", 250);
-//		unreserveItem(timsBasket, "cup", 200);
-		reserveItem(timsBasket, "spanner", 50);
+		addItem(timsBasket, "towel", 1);
+		addItem(timsBasket, "chair", 1);
+		addItem(timsBasket, "cup", 50);
+		removeItem(timsBasket, "cup", 250);
+		removeItem(timsBasket, "cup", 200);
+		addItem(timsBasket, "spanner", 50);
 		System.out.println(timsBasket);
 		System.out.println(stockList);
 		checkout(timsBasket);
-		System.out.println(timsBasket);
+//		System.out.println(timsBasket);
 		System.out.println(stockList);
 
 //		temp = new StockItem("pen", 1.12);
@@ -67,7 +67,7 @@ public class Main {
 //		}
 	}
 	
-	public static int reserveItem(Basket basket, String item, int quantity) {
+	public static int addItem(Basket basket, String item, int quantity) {
 //		retrieve the item from stock list
 		StockItem stockItem = stockList.get(item);
 		if (stockItem == null) {
@@ -75,14 +75,14 @@ public class Main {
 			return 0;
 		}
 		
-		if (stockList.reserveStock(item, quantity) != 0 && (quantity <= stockItem.getReserved())) {
+		if (stockList.reserveStock(item, quantity) != 0 ) {
 			basket.addToBasket(stockItem, quantity);
 			return quantity;
 		}
 		return 0;
 	}
 	
-	public static int unreserveItem(Basket basket, String item, int quantity) {
+	public static int removeItem(Basket basket, String item, int quantity) {
 		StockItem stockItem = stockList.get(item);
 		if (stockItem.getReserved() < quantity) {
 			System.out.println("Not enough items in basket to remove");
@@ -99,8 +99,7 @@ public class Main {
 		System.out.println("Checking out basket...");
 
 		for (StockItem item : basket.Items().keySet()) {
-			item.adjustStock(-item.getReserved());
-			item.unreserveItem(item.getReserved());
+			item.finaliseStock(item.getReserved());
 			
 		}
 		basket.emptyBasket();

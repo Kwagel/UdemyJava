@@ -54,8 +54,8 @@ public class StockItem implements Comparable<StockItem> {
 		return 0;
 	}
 	
-	public int unreserveItem(int quantity){
-		if (quantity <= reserved){
+	public int unreserveItem(int quantity) {
+		if (quantity <= reserved) {
 			reserved -= quantity;
 			return quantity;
 		}
@@ -67,6 +67,15 @@ public class StockItem implements Comparable<StockItem> {
 		if (newQuantity >= 0) {
 			this.quantityStock = newQuantity;
 		}
+	}
+	
+	public int finaliseStock(int quantity) {
+		if (quantity <= reserved) {
+			quantityStock -= quantity;
+			reserved -= quantity;
+			return quantity;
+		}
+		return 0;
 	}
 	
 	@Override
@@ -100,7 +109,7 @@ public class StockItem implements Comparable<StockItem> {
 	
 	@Override
 	public String toString() {
-		return this.name + ": " + String.format("%.2f", this.price);
+		return this.name + ": " + String.format("%.2f", this.price) + ", Reserved :" + this.reserved;
 	}
 }
 
