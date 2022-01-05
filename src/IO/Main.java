@@ -1,5 +1,6 @@
 package IO;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -8,7 +9,7 @@ import java.util.Scanner;
 public class Main {
 	private static Locations locations = new Locations();
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		Scanner scanner = new Scanner(System.in);
 //		location ID matches a location description
 		
@@ -19,16 +20,17 @@ public class Main {
 		directions.put("NORTH", "N");
 		directions.put("QUIT", "Q");
 		
-		int loc = 64;
+//		int loc = 64;
+		Location currentLocation = locations.getLocation(1);
 		while (true) {
 //			get description from location field.
-			System.out.println(locations.get(loc).getDescription());
+			System.out.println(currentLocation.getDescription());
 //			if you choose exit, it ends game
-			if (loc == 0) {
+			if (currentLocation.getLocationID() == 0) {
 				break;
 			}
 //			retrieve map of viable directions
-			Map<String, Integer> exits = locations.get(loc).getExits();
+			Map<String, Integer> exits = currentLocation.getExits();
 //			print avaialbe directions
 			System.out.print("Available exits are ");
 			for (String exit : exits.keySet()) {
@@ -57,13 +59,13 @@ public class Main {
 
 //			if valid direction, set location key for locations from exits values to corresponding direction key
 			if (exits.containsKey(direction)) {
-				loc = exits.get(direction);
+				currentLocation = locations.getLocation(currentLocation.getExits().get(direction));
 			} else {
 				System.out.println("You cant move in that direction");
 				
 			}
 			
 		}
-		
+		locations.close();
 	}
 }
