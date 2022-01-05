@@ -1,14 +1,17 @@
 package IO;
 
+import java.io.Serializable;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class Location {
+public class Location implements Serializable {
 	private final int locationID;
 	private final String description;
 	private final Map<String, Integer> exits;
 	
-	public Location(int locationID, String description, Map<String , Integer> exits) {
+	private long serialVersionUID = 1L;
+	
+	public Location (int locationID, String description, Map<String , Integer> exits) {
 		this.locationID = locationID;
 		this.description = description;
 //		creating a copy so when you assign stuff using a temp hashmap, using remove doesn't affect the stored map
@@ -17,7 +20,7 @@ public class Location {
 		}else{
 			this.exits = new LinkedHashMap<>();
 		}
-			exits.put("Q", 0);
+			this.exits.put("Q", 0);
 	}
 //	public void addExit(String direction, int location){
 //		exits.put(direction, location);
